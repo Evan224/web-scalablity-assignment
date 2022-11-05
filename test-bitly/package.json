@@ -1,0 +1,9 @@
+{
+  "name": "test-bitly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "k6": "^0.0.0"
+  }
+}

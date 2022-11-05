@@ -1,0 +1,40 @@
+version: "3.4"
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    ports:
+      - 7777:7777
+    depends_on:
+      - database
+      - flyway
+    environment:
+      - PGPORT=5432
+      - PGDATABASE=database
+      - PGUSER=username
+      - PGPASSWORD=password
+      - PGHOST=postgres-database1
+
+  database:
+    container_name: "postgres-database1"
+    image: "postgres:14.1"
+    restart: "no"
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
+
+  flyway:
+    image: flyway/flyway:8.4.0-alpine
+    environment:
+      - FLYWAY_USER=username
+      - FLYWAY_PASSWORD=password
+      - FLYWAY_URL=jdbc:postgresql://postgres-database1:5432/database
+    depends_on:
+      - database
+    volumes:
+      - .:/flyway/sql
+    command: -connectRetries=60 -baselineOnMigrate=true migrate

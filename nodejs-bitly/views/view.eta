@@ -1,0 +1,13 @@
+My URL Shortener!
+<form method="POST" action="/shorten">
+  <input type="text" name="url" placeholder="Enter URL"> 
+  <br>
+  <input type="submit" value="Shorten!" />
+</form>
+
+<% if (it.url) { %>
+   <a href="<%= it.url %>"> <%= it.url %></a> is now at 
+    <a href="<%= it.short_url %>"> <%= it.short_url %> </a>
+<% }%>
+
+

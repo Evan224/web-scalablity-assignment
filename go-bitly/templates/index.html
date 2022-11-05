@@ -1,0 +1,14 @@
+My URL Shortener!
+<form method="POST" action="/shorten">
+  <input type="text" name="url" placeholder="Enter URL"> 
+  <br>
+  <input type="submit" value="Shorten!" />
+</form>
+
+{{if .hasUrl}}
+    <a href="{{ .url }}"> {{ .url }}</a> is now at 
+    <a href="{{ .short }}"> {{ .short }} </a>
+{{end}}
+
+
+

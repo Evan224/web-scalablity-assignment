@@ -6,13 +6,14 @@ FROM node:16.13.1-alpine3.14
 WORKDIR /app
 
 # Copies package.json, package-lock.json, tsconfig.json, .env to the root of WORKDIR
-COPY ["package.json", "package-lock.json", ".env", "./"]
+COPY ["package.json", "package-lock.json", ".env", "./"] /app/
 
-# Copies everything in the src directory to WORKDIR/src
-COPY . .
 
 # Installs all packages
 RUN npm install
+
+# Copies everything in the src directory to WORKDIR/src
+COPY . /app
 
 # Runs the dev npm script to build & start the server
 CMD npm run start

@@ -21,12 +21,7 @@ eta.configure({
   });
 
 
-  const sql = "CREATE TABLE IF NOT EXISTS urls (id SERIAL PRIMARY KEY, url VARCHAR(255), short_url VARCHAR(255))";
-pool.query(sql, function (err, result) {
-  if (err) {
-    console.log("fail to create table");
-  }
-});
+
 
 dotenv.config(); //Reads .env file and makes it accessible via process.env
 
@@ -34,6 +29,12 @@ let URL="";
 let SHORTURL="";
 app.use(koaBody({ multipart: true }));
 router.get('/', async (ctx, next) => {
+  const sql = "CREATE TABLE IF NOT EXISTS urls (id SERIAL PRIMARY KEY, url VARCHAR(255), short_url VARCHAR(255))";
+  pool.query(sql, function (err, result) {
+    if (err) {
+      console.log("fail to create table");
+    }
+  });
     ctx.type='html';
     ctx.body=await eta.renderFile("view", {
       data: "Hello World!",
@@ -57,6 +58,12 @@ router.post('/shorten', async (ctx, next) => {
 });
 
 router.get('/', async (ctx, next) => {
+  const sql = "CREATE TABLE IF NOT EXISTS urls (id SERIAL PRIMARY KEY, url VARCHAR(255), short_url VARCHAR(255))";
+  pool.query(sql, function (err, result) {
+    if (err) {
+      console.log("fail to create table");
+    }
+  });
     ctx.type='html';
     ctx.body=await eta.renderFile("view", {
       data: "Hello World!",

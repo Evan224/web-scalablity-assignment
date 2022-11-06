@@ -19,16 +19,17 @@ const pool = new Pool({
 });
 
 // create Table
-const sql = "CREATE TABLE IF NOT EXISTS urls (id SERIAL PRIMARY KEY, url VARCHAR(255), short_url VARCHAR(255))";
+
+
+let URL="";
+let SHORTURL="";
+app.get("/", function (req, res) {
+  const sql = "CREATE TABLE IF NOT EXISTS urls (id SERIAL PRIMARY KEY, url VARCHAR(255), short_url VARCHAR(255))";
 pool.query(sql, function (err, result) {
   if (err) {
     console.log("fail to create table");
   }
 });
-
-let URL="";
-let SHORTURL="";
-app.get("/", function (req, res) {
   res.render("view", {
     data: "Hello World!",
     url:URL,

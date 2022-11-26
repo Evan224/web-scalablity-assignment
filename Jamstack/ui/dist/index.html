@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+		<title>Ping pong</title>
+	<link rel="stylesheet" href="/assets/index.57f6a860.css" /><script type="module">const c=()=>{fetch("/api/ping",{method:"POST"}),document.querySelector("#time").innerHTML=`Last ping sent at ${new Date}`};document.querySelector("#button").addEventListener("click",c);let o;const s=e=>{const n=document.createElement("li");n.textContent=e,document.querySelector("#pongs").appendChild(n)},t=e=>(s(e.data),!1),l=()=>{o=new WebSocket("ws://localhost:7800/ws-pong/connect"),o.onmessage=t,o.onclose=(e,n)=>{console.log("WebSocket connection closed"),console.log(e),console.log(n)},o.onerror=e=>console.error("WebSocket error:",e),o.onmessage=t,o.onopen=()=>console.log("WebSocket connection created")};document.querySelector("#start").addEventListener("click",l);
+</script></head>
+	<body>
+		<h1>Hello world!</h1><h2>Ping?</h2>
+<input type="button" id="button" value="Send ping">
+<p id="time">
+</p>
+
+<h2>Pong?</h2>
+
+<ul id="pongs">
+</ul>
+
+<input type="button" id="start" value="Start listening">
+
+
+	
+</body></html>

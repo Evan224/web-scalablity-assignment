@@ -1,0 +1,16 @@
+<h2>Ping?</h2>
+<input type="button" id="button" value="Send ping" />
+<p id="time">
+</p>
+
+<script>
+const sendPing = () => {
+	fetch("/api/ping", {
+		method: "POST",
+	});
+
+	document.querySelector("#time").innerHTML = `Last ping sent at ${new Date()}`;
+}
+
+document.querySelector("#button").addEventListener("click", sendPing);
+</script>

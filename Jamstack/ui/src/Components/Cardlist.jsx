@@ -26,7 +26,6 @@ export default function CardList() {
             temp[Number(probelm_id)-1].ifSaved=ifSaved;
             temp[Number(probelm_id)-1].solution=solution;
         })
-        console.log(temp,"temp");
         return temp;
     },[problems])
 

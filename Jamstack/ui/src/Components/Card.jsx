@@ -27,7 +27,7 @@ export default function Card(props) {
 
 
   return (
-    <div className="card-list">
+    <div className="card-list shadow-sm text-cyan-400">
       <h1 onClick={()=>{setOpen(state=>!state)}}>{name}</h1>
       <h2>{ifSaved==="PASS"?"Pass":"Not finished yet" }</h2>
       {open && (

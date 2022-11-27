@@ -1,6 +1,7 @@
 import { serve } from "./deps.js";
 import { grade } from "./grade.js";
 import {createUser, saveSolution, getAllSolutions, getUserId,updateSolution} from "./database.js";
+import { jobQueue } from "./jobQueue.js";
 
 const handleRequest = async (request) => {
   let token= request.headers.get("Authorization");
@@ -25,15 +26,15 @@ const handleRequest = async (request) => {
       const body=await request.json();
       const {problem_id, solution,ifSaved} = body;
       // console.log(body);
-      const result=await grade(solution);
-      console.log("result",result);
-      console.log(ifSaved,"ifSaved");
+      jobQueue.push({problem_id, solution,userId,ifSaved});
+
+      // const result=await grade(solution);
+      // console.log("result",result);
+      // console.log(ifSaved,"ifSaved");
       if(ifSaved!=="") {
-          const response = await updateSolution(solution,userId,problem_id,result);
-          console.log(response, "response?");
+          const response = await updateSolution(solution,userId,problem_id,"Pending");
       }else{
-          const response = await saveSolution(solution,userId,problem_id,result);
-          console.log(response, "response");
+          const response = await saveSolution(solution,userId,problem_id,"Pending");
       }
   }
 

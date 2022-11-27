@@ -1,0 +1,64 @@
+---
+import Card from "./Card.astro";
+
+//todo get the data from the api if we find the localhost token
+//if not ,generate the token and save it in the local storage
+
+const problems=[
+    {
+        id:1,
+        name:"Sum of three values",
+        description:"Write a function int sum(int first, int second, int third) that returns the sum of the given integers. As an example, the function call sum(1, 2, 3) should return the value 6.",
+    },{
+        id:2,
+        name:"Sum of two values",
+        description:"Write a function int sum(int first, int second) that returns the sum of the given integers. As an example, the function call sum(1, 2) should return the value 3.",
+    },{
+        id:3,
+        name:"Sum of one value",
+        description:"Write a function int sum(int first) that returns the given integer. As an example, the function call sum(1) should return the value 1.",
+    },{
+        id:4,
+        name:"Sum of no values",
+        description:"Write a function int sum() that returns the value 0. As an example, the function call sum() should return the value 0.",
+    }
+]
+
+
+const cards=[
+    {
+        problem: "Problem 1",
+        ifSolved: false,
+        solution: "Solution 1"
+    },
+    {
+        problem: "Problem 2",
+        ifSolved: false,
+        solution: "Solution 2", 
+    },
+    {
+        problem: "Problem 3",
+        ifSolved: false,
+        solution: "Solution 3",   
+    }
+]
+---
+
+{cards.map((card:a) => (
+  <Card {...card} />
+))}
+
+<script >
+let token=localStorage.getItem("token");
+    const resp=await fetch("http://localhost:7800/api",{
+    method:"GET",
+    headers:{
+        "Content-Type":"application/x-www-form-urlencoded",
+        "Authorization":token
+    }})
+    const newToken=resp.headers.get("authorization")
+    localStorage.setItem("token",newToken)
+    
+    // console.log('----',resp.body,'------------------')
+</script>
+

@@ -1,14 +1,52 @@
 import { serve } from "./deps.js";
 import { grade } from "./grade.js";
+import {createUser, saveSolution, getAllSolutions, getUserId,updateSolution} from "./database.js";
 
 const handleRequest = async (request) => {
-  const formData = await request.formData();
-  const code = formData.get("code");
+  let token= request.headers.get("Authorization");
+  const respheaders = new Headers();
+  console.log(typeof token, token);
+  if(!token||token==="null") {
+    token=crypto.randomUUID();
+    await createUser(token);
+    console.log('new user',token);
 
-  const result = await grade(code);
-  // console.log(code);
+  }
+  respheaders.set("Authorization", token);
 
-  return new Response(JSON.stringify({ result: result }));
+  const userId=await getUserId(token);
+
+  if(request.method==="GET") {
+      const resp=await getAllSolutions(userId);
+      return new Response(JSON.stringify({problems:resp}), {
+        headers: respheaders,
+      });
+  }else{
+      const body=await request.json();
+      const {problem_id, solution,ifSaved} = body;
+      // console.log(body);
+      const result=await grade(solution);
+      console.log("result",result);
+      console.log(ifSaved,"ifSaved");
+      if(ifSaved!=="") {
+          const response = await updateSolution(solution,userId,problem_id,result);
+          console.log(response, "response?");
+      }else{
+          const response = await saveSolution(solution,userId,problem_id,result);
+          console.log(response, "response");
+      }
+  }
+
+  return new Response(JSON.stringify({ status:"success" }), {
+    headers: respheaders,
+  });
+
+
+
+
+
+
+
 };
 
 serve(handleRequest, { port: 7777 });

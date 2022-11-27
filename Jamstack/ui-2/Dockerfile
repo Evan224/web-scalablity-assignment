@@ -6,12 +6,12 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
-COPY postcss.config.js /app/postcss.config.js
-COPY tailwind.config.js /app/tailwind.config.js
+COPY tsconfig.json /app/tsconfig.json
+COPY tailwind.config.cjs /app/tailwind.config.cjs
 
 # install node dependencies
 RUN echo "npm install in progress..." && npm ci
 
 EXPOSE 7778
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "dev" ]

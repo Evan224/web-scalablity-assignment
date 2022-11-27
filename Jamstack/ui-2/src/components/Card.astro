@@ -1,0 +1,13 @@
+--- 
+const {problem,ifSolved,solution} = Astro.props;
+console.log(problem,ifSolved,solution);
+
+// sumbit the current process and wait for the result
+// save the current process to the database
+// if the process is solved, then update the database
+---
+
+<h1 class="bg-red-100">{problem}</h1>
+<h2>{ifSolved?"true":"false-------"}</h2>
+<textarea class="bg-blue-100">{solution}</textarea>
+<input type="submit" value="submit" class="bg-green-100" />

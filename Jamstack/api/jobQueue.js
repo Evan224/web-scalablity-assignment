@@ -9,17 +9,13 @@ const handleQueue = async () => {
 
     while(jobQueue.length > 0) {
         const job = jobQueue.shift();
-        
-
+    
+        // console.log(job,"job");
         const result=await grade(job.solution);
-        if(job.ifSaved){
-            await updateSolution(job.solution,job.userId,job.problem_id,result);
-        }else{
-            await saveSolution(job.solution,job.userId,job.problem_id,result);
-        }
+        
+        await updateSolution(job.solution,job.userId,job.problem_id,result);
+
     }
-
-
 
     setTimeout(() => handleQueue(), 1000);
 }

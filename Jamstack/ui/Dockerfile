@@ -9,6 +9,7 @@ COPY package-lock.json /app/package-lock.json
 COPY postcss.config.js /app/postcss.config.js
 COPY tailwind.config.js /app/tailwind.config.js
 
+RUN npm install
 # install node dependencies
 RUN echo "npm install in progress..." && npm ci
 

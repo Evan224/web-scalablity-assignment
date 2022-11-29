@@ -1,6 +1,6 @@
 import { serve } from "./deps.js";
 import { grade } from "./grade.js";
-import {createUser, saveSolution, getAllSolutions, getUserId,updateSolution} from "./database.js";
+import {createUser, saveSolution, getAllSolutions, getUserId,updateSolution,getOneSolution} from "./database.js";
 import { jobQueue } from "./jobQueue.js";
 
 const handleRequest = async (request) => {
@@ -11,30 +11,34 @@ const handleRequest = async (request) => {
     token=crypto.randomUUID();
     await createUser(token);
     console.log('new user',token);
-
   }
   respheaders.set("Authorization", token);
+  const path=request.url.split('/api/')[1];
 
   const userId=await getUserId(token);
 
   if(request.method==="GET") {
-      const resp=await getAllSolutions(userId);
+      console.log('get',path);
+      let resp;
+      if(!path) {
+       resp=await getAllSolutions(userId);
+      }else{
+        resp=await getOneSolution(userId,path);
+      }
       return new Response(JSON.stringify({problems:resp}), {
         headers: respheaders,
       });
   }else{
       const body=await request.json();
+      console.log(body,'body');
       const {problem_id, solution,ifSaved} = body;
-      // console.log(body);
+      console.log("problem_id",problem_id,"solution",solution,"ifSaved",ifSaved);
       jobQueue.push({problem_id, solution,userId,ifSaved});
 
-      // const result=await grade(solution);
-      // console.log("result",result);
-      // console.log(ifSaved,"ifSaved");
-      if(ifSaved!=="") {
-          const response = await updateSolution(solution,userId,problem_id,"Pending");
+      if(ifSaved&&ifSaved.length>0){ 
+           await updateSolution(solution,userId,problem_id,"Pending");
       }else{
-          const response = await saveSolution(solution,userId,problem_id,"Pending");
+        await saveSolution(solution,userId,problem_id,"Pending");
       }
   }
 

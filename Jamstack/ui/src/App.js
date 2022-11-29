@@ -1,12 +1,28 @@
 import Cardlist from "./Components/Cardlist.jsx";
+import Card from "./Components/Card";
+import React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Cardlist />,
+  },{
+    path: "/:id",
+    element: <Card />,
+  }
+]);
+
+const App = () => {
   return (
-    <div className="App">
-      <h1 className="max-w-sm rounded overflow-hidden shadow-lg text-red-100">Welcome and Prepare for your coding test!</h1>
-      <Cardlist />
-    </div>
+    <RouterProvider
+    router={router}
+  />
   );
-}
+};
+
 
 export default App;

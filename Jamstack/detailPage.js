@@ -5,5 +5,5 @@ export const options = {
     summaryTrendStats: ["avg","med", "p(99)", "p(95)"],
 };
 export default function () { 
-    http.get("http://localhost:7800" ); 
+    http.get("http://localhost:7800/1" ); 
 }

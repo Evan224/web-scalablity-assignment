@@ -14,8 +14,13 @@ const handleRequest = async (request) => {
   }
   respheaders.set("Authorization", token);
   const path=request.url.split('/api/')[1];
-
-  const userId=await getUserId(token);
+  let userId;
+  try{
+    userId=await getUserId(token);
+  }catch(err){
+    await createUser(token);
+  }
+  
 
   if(request.method==="GET") {
       console.log('get',path);

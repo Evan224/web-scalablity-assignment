@@ -48,6 +48,7 @@ const getOneSolution=async (userId,problem_id) => {
 
 const getUserId = async (token) => {
     const response = await client.queryArray("SELECT * FROM users WHERE token = $1", [token]);
+    console.log(token,response.rows);
     return response.rows[0][0];
 }
 

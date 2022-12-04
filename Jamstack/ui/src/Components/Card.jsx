@@ -33,16 +33,15 @@ export default function Card() {
 
   useEffect(()=>{
     const fetchData = async () => {
-      console.log(id,"id");
+      // console.log(id,"id");
       let token=localStorage.getItem("token");
-      // const token=cookies.get("token");
       const resp=await fetch(`http://localhost:7800/api/${id}`,{
       method:"GET",
       headers:{
           "Authorization":token
       }})
       const data=await resp.json()
-      console.log(data,"data");
+      // console.log(data,"data");
       if(data.problems.length>0){
         setTextValue(data.problems[0][3]);
         setIfSaved(data.problems[0][2]);
@@ -53,7 +52,7 @@ export default function Card() {
 
   useInterval(()=>{
     const fetchData = async () => {
-      console.log(id,"id");
+      // console.log(id,"id");
       let token=localStorage.getItem("token");
       // const token=cookies.get("token");
       const resp=await fetch(`http://localhost:7800/api/${id}`,{
@@ -62,7 +61,7 @@ export default function Card() {
           "Authorization":token
       }})
       const data=await resp.json()
-      console.log(data,"data");
+      // console.log(data,"data");
       if(data.problems.length>0){
         setIfSaved(data.problems[0][2]);
       }

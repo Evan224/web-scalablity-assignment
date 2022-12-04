@@ -2,11 +2,13 @@
 
 # guidance.
 
-This is a mock programming test application. You need to first cd to the ui
-folder, and run
+This is a mock programming test application. You need to first cd to the
+grader-image folder
 
 ```
-npm install
+cd grader-image
+
+docker build -t grader-image .
 ```
 
 And then In the root folder, run
@@ -15,36 +17,55 @@ And then In the root folder, run
 docker-compose up.
 ```
 
-And change to the grader-image folder to run the grader image
+The k6 tests are in the tests folder
+
+```
+cd tests
+
+k6 run getAPITest.js
+k6 run getDetailPage.js
+k6 run getMainPage.js
+k6 run postTest.js
+```
 
 # Core web vitals and performance test results
 
 For the web vitals, I have used React framework. You will see the result in the
-console.log. For the performance test results, I have used K6. you need to run
-
-```
-k6 run index.js
-```
+console.log.
 
 for the test.
 
 The results are as follows: for the web vitals:
 
-TTFB: 19.599999994039536 FCP:185 CLS:0 LCP: 185.099
+TTFB: 7.40 The time to the first byte measures the delay between the moment a
+user requests our page and when the first byte of the response arrives.
 
-The light house result is 77 marks for the overall performance.
+FCP: 274.7 The first contentful paint measures the delay between when the page
+starts loading and when any part of the content is visible.
+
+CLS:0 The cumulative layout shift detects sudden changes to the webpage. If a
+text or a link moves unexpectedly, we can end up clicking on something else by
+accident. < 0.1 is a good number.
+
+LCP: 185.099 The largest contentful paint reports the render time of the largest
+image or text block visible in the viewport. We should aim to have an LCP of 2.5
+seconds or less.
+
+The light house result is 93 marks for the overall performance in desktop.
 
 For the K6 test,
 
-1. Test the main page (I have included the questions also in the main page).
-   time: 10s, users:100 http_req_receiving: avg=31.2µs med=25µs p(99)=92.75µs
-   p(95)=70µs
+1. Test the getAPITest (get all problems status). time: 10s, users:100
+   http_req_receiving: avg=32.2µs med=26µs p(99)=103µs p(95)=75µs
 
-2. Test the api post time: 10s, users:100 http_req_receiving: avg=28.78µs
-   med=20µs p(99)=101µs p(95)=64µs
+2. Test the getDetailPage (get the detail page status) . 10s, users:100
+   http_req_receiving: avg=44.15µs med=38µs p(99)=113µs p(95)=86µs
 
-3. Test the api get time: 10s, users:100 http_req_receiving: avg=35.87µs
-   med=32µs p(99)=102µs p(95)=74µs
+3. Test the main get time: 10s, users:100 http_req_receiving: avg=28.87µs
+   med=21µs p(99)=100µs p(95)=66µs
+
+4. Test the submit solution time 10s, users:100 http_req_receiving: avg=30.39µs
+   med=25µs p(99)=101.95µs p(95)=71µs
 
 # Brief reflection
 

@@ -45,10 +45,10 @@ const handleRequest = async (request) => {
       });
     }
   };
-  
+  console.log(method);
   if(method==="POST") {
     const body=await request.json();
-    console.log(body,'body');
+ 
     if(!path) { //new message
       const response=await postMessage(body.content,userId);
       return new Response(JSON.stringify(response), {

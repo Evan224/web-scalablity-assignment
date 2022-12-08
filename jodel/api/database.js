@@ -23,7 +23,9 @@ const getUserId = async (token) => {
 }
 
 const getAllMessages = async () => {
-    const response = await client.queryArray("SELECT * FROM messages");
+    // const response = await client.queryArray("SELECT * FROM messages");
+    // get all messages by time
+    const response = await client.queryArray("SELECT * FROM messages ORDER BY time DESC");
     return response.rows;
 }
 

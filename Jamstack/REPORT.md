@@ -70,14 +70,15 @@ For the K6 test,
 # Brief reflection
 
 I think the api design has many aspects to better. I have used the localstorage
-for many requests. I think this will affect my performance. Besides, I actually
-did not really understand the message queues well enough.
+for many requests. I think this will affect my performance. I think my job queue
+is way too simple. I did not use the modern solutions such as kafka.
 
 # Brief suggestion for improvements
 
 I think I need find better way to solve the data persistency problem. Besides,
 the backend api is not written very well, I should use better framework for the
-backend service. What's more, the sqls are not efficient enough.
+backend service. What's more, the sqls are not efficient enough. And I may need
+to use the modern job queue solutions in the future.
 
 <!-- ○ Brief guidelines for running the application (and performance tests if they have been ran with scripts).
 ○ Core web vitals and performance test results.

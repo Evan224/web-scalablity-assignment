@@ -29,6 +29,11 @@ const getAllMessages = async () => {
     return response.rows;
 }
 
+const getOneMessage = async (message_id) => {
+    const response = await client.queryArray("SELECT * FROM messages WHERE id=$1", [message_id]);
+    return response.rows;
+}
+
 const getMessageReplies = async (message_id) => {
     const response = await client.queryArray("SELECT * FROM replies WHERE message_id=$1", [message_id]);
     return response.rows;
@@ -54,4 +59,4 @@ const downvoteMessage = async (message_id) => {
     return response.rows;
 }
 
-export { createUser, getUserId, getAllMessages, getMessageReplies, postMessage, postReply, upvoteMessage, downvoteMessage};
+export { createUser, getUserId, getAllMessages, getMessageReplies, postMessage, postReply, upvoteMessage, downvoteMessage,getOneMessage};

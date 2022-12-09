@@ -1,5 +1,5 @@
 import {useState, useEffect,lazy,Suspense} from 'react';
-import {useLocation,useParams } from 'react-router-dom';
+import {useNavigate,useLocation} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown'
 import useInterval from './useInterval.js';
 
@@ -8,32 +8,17 @@ import useInterval from './useInterval.js';
 
 export default function Card(props) {
   // console.log(props,"props");
+  const {show=true}=props;
   const {message}=props;
   const [vote,setVote]=useState(message[2]);
   const [content,setContent]=useState(message[1]);
+  const navigate=useNavigate();
 
 
-  // useInterval(()=>{
-  //   const fetchData = async () => {
-  //     // console.log(id,"id");
-  //     let token=localStorage.getItem("token");
-  //     // const token=cookies.get("token");
-  //     const resp=await fetch(`http://localhost:7800/api/${id}`,{
-  //     method:"GET",
-  //     headers:{
-  //         "Authorization":token
-  //     }})
-  //     const data=await resp.json()
-  //     // console.log(data,"data");
-  //     if(data.problems.length>0){
-  //       setIfSaved(data.problems[0][2]);
-  //     }
-  //   }
-  //   fetchData();
-  // });
 
-  const handleUpVote=async ()=>{
-    // console.log("upvote");
+  const handleUpVote=async (e)=>{
+    e.preventDefault();
+
     let token=localStorage.getItem("token");
     const resp=await fetch(`http://localhost:7800/api/upvote`,{
     method:"POST",
@@ -47,8 +32,8 @@ export default function Card(props) {
     setVote(vote=>vote+1);
   }
 
-  const handleDownVote=async ()=>{
-    // console.log("downvote");
+  const handleDownVote=async (e)=>{
+    e.preventDefault();
     let token=localStorage.getItem("token");
     const resp=await fetch(`http://localhost:7800/api/downvote`,{
     method:"POST",
@@ -60,18 +45,31 @@ export default function Card(props) {
   }})
     setVote(vote=>vote-1);
   }
+
+  const handleEdit=async (e)=>{
+    e.preventDefault();
+    //navigate to edit page
+    navigate(`/detail/${message[0]}`, { state: { id: message[0] } });
+  }
+
   const currentColor=randomColor[message[0]%randomColor.length]
 
   return (
     <div className="card-list shadow-sm p-4">
       <div className={`flex p-4 justify-between ${currentColor}`}>
-        <div className='w-2/3'>
-          {content}
+        <div className='flex flex-col w-full justify-between'>
+            <div className='w-2/3'>
+              {content}
+            </div>
+            <div>
+              {show&&<button className="btn btn-primary" onClick={(e)=>{handleEdit(e)}} >details</button>}
+            </div>
         </div>
+     
         <div className="flex flex-col justify-between items-center">
-          <button className="btn btn-primary" onClick={(e)=>{handleUpVote()}}>UP</button>
+          <button className="btn btn-primary" onClick={(e)=>{handleUpVote(e)}}>UP</button>
           <div>{vote}</div>
-          <button className="btn btn-primary" onClick={(e)=>{handleDownVote()}}>Down</button>
+          <button className="btn btn-primary" onClick={(e)=>{handleDownVote(e)}}>Down</button>
         </div>
       </div>
     </div>

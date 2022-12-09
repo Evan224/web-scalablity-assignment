@@ -1,5 +1,5 @@
 import Cardlist from "./Components/Cardlist.jsx";
-import Card from "./Components/Card";
+import CardDetail from "./Components/CardDetail.jsx";
 import React from "react";
 import {
   createBrowserRouter,
@@ -11,8 +11,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <Cardlist />,
   },{
-    path: "/:id",
-    element: <Card />,
+    path: "/detail/:id",
+    element: <CardDetail/>,
   }
 ]);
 

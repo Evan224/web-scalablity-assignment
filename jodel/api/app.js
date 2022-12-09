@@ -1,5 +1,6 @@
 import { serve } from "./deps.js";
-import { createUser, getUserId, getAllMessages, getMessageReplies, postMessage, postReply, upvoteMessage, downvoteMessage} from "./database.js";
+import { createUser, getUserId, getAllMessages, getMessageReplies, postMessage,getOneMessage,
+   postReply, upvoteMessage, downvoteMessage} from "./database.js";
 // import { jobQueue } from "./jobQueue.js";
 
 const handleUserId=async (request)=>{
@@ -37,15 +38,26 @@ const handleRequest = async (request) => {
           headers: respheaders,
         });
       }
-    else{
-      const message_id=path.split('/')[1];
+    if(path.includes('reply')){
+      const message_id=path.split('reply/')[1];
       const replies=await getMessageReplies(message_id);
       return new Response(JSON.stringify(replies), {
         headers: respheaders,
       });
+    }else{
+      const message_id=path;
+      const message=await getOneMessage(message_id);
+      const replies=await getMessageReplies(message_id);
+
+      return new Response(JSON.stringify({
+        message,
+        replies
+      }), {
+        headers: respheaders,
+      });
     }
   };
-  console.log(method);
+  // console.log(method);
   if(method==="POST") {
     const body=await request.json();
  

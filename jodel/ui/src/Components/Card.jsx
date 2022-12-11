@@ -10,6 +10,7 @@ export default function Card(props) {
   const {message}=props;
   const [vote,setVote]=useState(message[2]);
   const [content]=useState(message[1]);
+  const [time]=useState(message[4]);
   const navigate=useNavigate();
 
 
@@ -59,12 +60,14 @@ export default function Card(props) {
             <div className='w-2/3'>
               {content}
             </div>
-            <div>
+            <div className='w-full flex justify-between'>
               {show&&<button className="btn btn-primary" onClick={(e)=>{handleEdit(e)}} >details</button>}
+             <div>{time}</div>
+
             </div>
         </div>
      
-        <div className="flex flex-col justify-between items-center">
+        <div className="flex flex-col justify-between items-center p-4">
           <button className="btn btn-primary" onClick={(e)=>{handleUpVote(e)}}>UP</button>
           <div>{vote}</div>
           <button className="btn btn-primary" onClick={(e)=>{handleDownVote(e)}}>Down</button>

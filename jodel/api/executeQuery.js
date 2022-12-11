@@ -10,7 +10,7 @@ if (Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST")) {
     }, CONCURRENT_CONNECTIONS); 
  } else { 
     connectionPool = new Pool({
-        host:Deno.env.get("PGHOST"),
+        hostname:Deno.env.get("PGHOST"),
         user:Deno.env.get("PGUSER"),
         password:Deno.env.get("PGPASSWORD"),
         database:Deno.env.get("PGDATABASE"),

@@ -26,7 +26,7 @@ export default function CardDetail(props) {
         headers:{
             "Authorization":token
         }})
-        const data=await resp.json()
+        await resp.json()
         window.location.reload();
     }
 
@@ -46,7 +46,7 @@ export default function CardDetail(props) {
             setReplies(replies);
         }
         fetchData();
-    },[]);
+    },[id]);
     const currentColor=randomColor[id%randomColor.length]
     return (
         <div>

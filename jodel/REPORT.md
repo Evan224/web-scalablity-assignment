@@ -25,17 +25,21 @@ kubectl apply -f nginx2.yaml
 minikube tunnel
 ```
 
-besides, to 
+besides, to run the test:
 
 The k6 tests are in the tests folder
 
 ```
 cd tests
 
-k6 run getAPITest.js
-k6 run getDetailPage.js
 k6 run getMainPage.js
-k6 run postTest.js
+k6 run postMessage.js
+k6 run getMainPage.js
+
+k6 run getDetailPage.js
+k6 run postApply.js
+k6 run getDetailPage.js
+
 ```
 
 # Core web vitals and performance test results
@@ -65,17 +69,26 @@ The light house result is 93 marks for the overall performance in desktop.
 
 For the K6 test,
 
-1. Test the getAPITest (get all problems status). time: 10s, users:100
-   http_req_receiving: avg=32.2µs med=26µs p(99)=103µs p(95)=75µs
+1. The main page without messages time: 10s, users:100
+   http_req_receiving:  avg=30.34µs med=20µs    p(99)=103µs    p(95)=67µs  
 
-2. Test the getDetailPage (get the detail page status) . 10s, users:100
-   http_req_receiving: avg=44.15µs med=38µs p(99)=113µs p(95)=86µs
+2. Test the post with messages
+   http_req_receiving: avg=56.34µs  med=47µs     p(99)=141µs  p(95)=98.04µs
 
-3. Test the main get time: 10s, users:100 http_req_receiving: avg=28.87µs
-   med=21µs p(99)=100µs p(95)=66µs
+3. The main page without messages time: 10s, users:100
+   http_req_receiving:  avg=avg=32.08µs med=23µs    p(99)=117µs    p(95)=76µs
 
-4. Test the submit solution time 10s, users:100 http_req_receiving: avg=30.39µs
-   med=25µs p(99)=101.95µs p(95)=71µs
+4. The detail page without messages time: 10s, users:100
+   http_req_receiving:  avg=55.83µs  med=50µs     p(99)=141.48µs p(95)=99µs  
+
+5. Test the post wiith replies  time: 10s, users:10
+   http_req_receiving:  avg=47.53µs  med=39µs     p(99)=138µs    p(95)=99µs
+
+6. The detail page with messages time: 10s, users:100
+   http_req_receiving:  avg=58.34µs  med=49µs     p(99)=135µs    p(95)=100µs
+
+   
+
 
 # Brief reflection
 

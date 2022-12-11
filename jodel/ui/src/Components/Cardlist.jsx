@@ -17,6 +17,7 @@ export default function CardList() {
             "Authorization":localStorage.getItem("token")
         }})
         const data=await resp.json()
+        console.log(data,"data")    
         setMessages(message=>message.concat(data));
         if(!token){
             localStorage.setItem("token",await resp.headers.get("Authorization"));
@@ -43,7 +44,7 @@ export default function CardList() {
         headers:{
             "Authorization":token
         }})
-        const data=await resp.json()
+        await resp.json()
         window.location.reload();
     }
 
@@ -68,8 +69,8 @@ export default function CardList() {
                 onScroll={onScroll}
                 itemKey={(index, data) => index}
                 >
-                    {(message)=>{
-                        return <Card message={message} key={message[0]}/>
+                    {(message,index)=>{
+                        return <Card message={message} key={index}/>
                     }}
                 </List>
         </div>

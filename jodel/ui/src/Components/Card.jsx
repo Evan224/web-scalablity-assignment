@@ -18,7 +18,7 @@ export default function Card(props) {
     e.preventDefault();
 
     let token=localStorage.getItem("token");
-    const resp=await fetch(`/api/upvote`,{
+    await fetch(`/api/upvote`,{
     method:"POST",
     body:JSON.stringify({
         "message_id":message[0]
@@ -33,7 +33,7 @@ export default function Card(props) {
   const handleDownVote=async (e)=>{
     e.preventDefault();
     let token=localStorage.getItem("token");
-    const resp=await fetch(`/api/downvote`,{
+    await fetch(`/api/downvote`,{
     method:"POST",
     body:JSON.stringify({
         "message_id":message[0]

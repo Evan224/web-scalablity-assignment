@@ -25,6 +25,10 @@ export default function CardList() {
     }
 
     useEffect(()=>{
+        console.log(messages,"messages")
+    },[messages]);
+
+    useEffect(()=>{
         fetchData();
     },[]);
 

@@ -65,7 +65,9 @@ LCP: 185.099 The largest contentful paint reports the render time of the largest
 image or text block visible in the viewport. We should aim to have an LCP of 2.5
 seconds or less.
 
-The light house result is 93 marks for the overall performance in desktop.
+
+The light house result is 86 marks for the overall performance in desktop.
+
 
 For the K6 test,
 
@@ -81,7 +83,7 @@ For the K6 test,
 4. The detail page without messages time: 10s, users:100
    http_req_receiving:  avg=55.83µs  med=50µs     p(99)=141.48µs p(95)=99µs  
 
-5. Test the post wiith replies  time: 10s, users:10
+5. Test the post wiith replies  time: 10s, users:100
    http_req_receiving:  avg=47.53µs  med=39µs     p(99)=138µs    p(95)=99µs
 
 6. The detail page with messages time: 10s, users:100
@@ -97,10 +99,10 @@ The scroll function is very interesting. There are many solutions in the fronten
 
 # Brief suggestion for improvements
 
-I think I need find better way to solve the data persistency problem. Besides,
+I think I need find better way to solve the data persistency problem instead of locally. Besides,
 the backend api is not written very well, I should use better framework for the
 backend service. What's more, the sqls are not efficient enough. And I may need
-to use the modern job queue solutions in the future.
+to use the modern job queue solutions in the future. The K8s is really hard expecially if you are using Mac M1.
 
 <!-- ○ Brief guidelines for running the application (and performance tests if they have been ran with scripts).
 ○ Core web vitals and performance test results.

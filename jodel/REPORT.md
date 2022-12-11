@@ -2,20 +2,30 @@
 
 # guidance.
 
-This is a mock programming test application. You need to first cd to the
-grader-image folder
+This is a mock chatting message application. 
+
+To run the application in local docker, run:
+```
+docker-compose up
 
 ```
-cd grader-image
+Sometimes the flyway will be a bit late, the server will run at localhost:7800.
 
-docker build -t grader-image .
-```
-
-And then In the root folder, run
+Then, if you want to deploy the application, you need to first load the images in your local kubernetes cluster.
 
 ```
-docker-compose up.
+cd kurbenetes
+minikube start
+minikube image build -t ui ../ui
+minikube image build -t api ../api
+kubectl apply -f ui.yaml   
+kubectl apply -f api.yaml   
+kubectl apply -f database.yaml   
+kubectl apply -f nginx2.yaml 
+minikube tunnel
 ```
+
+besides, to 
 
 The k6 tests are in the tests folder
 
@@ -70,7 +80,7 @@ For the K6 test,
 # Brief reflection
 
 This big project is a bit hard for me. The k8s is a new technology for me and there are many issues that are hard to find online. But overall it is still a very interesting tool to use and deploy.
-The scroll function is very interesting. There are many solutions in the frontend to do that. And the SSE function is surely the key concept of the software.
+The scroll function is very interesting. There are many solutions in the frontend to do that. And the event function is surely the key concept of the application, which is also very challenge.
 
 # Brief suggestion for improvements
 

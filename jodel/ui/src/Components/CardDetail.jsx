@@ -17,7 +17,7 @@ export default function CardDetail(props) {
     const handleClickButton=async (e)=>{
         e.preventDefault();
         let token=localStorage.getItem("token");
-        const resp=await fetch(`http://localhost:7800/api/reply`,{
+        const resp=await fetch(`/api/reply`,{
         method:"POST",
         body:JSON.stringify({
             "content":textValue,
@@ -33,7 +33,7 @@ export default function CardDetail(props) {
     useEffect(()=>{
         const fetchData = async () => {
             // let token=localStorage.getItem("token");
-            const resp=await fetch(`http://localhost:7800/api/${id}`,{
+            const resp=await fetch(`/api/${id}`,{
             method:"GET",
             headers:{
                 "Authorization":localStorage.getItem("token")

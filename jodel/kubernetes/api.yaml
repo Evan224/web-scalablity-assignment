@@ -47,7 +47,7 @@ spec:
     - protocol: "TCP"
       port: 7777
       targetPort: 7777
-  type: NodePort
+  type: LoadBalancer
 
 ---
 apiVersion: autoscaling/v1

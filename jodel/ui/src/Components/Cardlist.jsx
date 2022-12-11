@@ -11,7 +11,7 @@ export default function CardList() {
 
     const fetchData = async () => {
         let token=localStorage.getItem("token");
-        const resp=await fetch(`http://localhost:7800/api?offset=${messages.length}`,{
+        const resp=await fetch(`/api?offset=${messages.length}`,{
         method:"GET",
         headers:{
             "Authorization":localStorage.getItem("token")
@@ -35,7 +35,7 @@ export default function CardList() {
     const handleClickButton=async (e)=>{
         e.preventDefault();
         let token=localStorage.getItem("token");
-        const resp=await fetch(`http://localhost:7800/api/`,{
+        const resp=await fetch(`/api/`,{
         method:"POST",
         body:JSON.stringify({
             "content":textValue

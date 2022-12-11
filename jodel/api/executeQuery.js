@@ -4,19 +4,10 @@ const CONCURRENT_CONNECTIONS = 2;
 let connectionPool; 
 
 if (Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST")) { 
-    console.log("PG_CLUSTER_RW_SERVICE_HOST: " + Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST"))
-    console.log("PG_CLUSTER_RW_SERVICE_PORT: " + Deno.env.get("PG_CLUSTER_RW_SERVICE_PORT"))
-    console.log("PGUSER: " + Deno.env.get("PGUSER"))
-    console.log("PGPASSWORD: " + Deno.env.get("PGPASSWORD"))
-    console.log("PGDATABASE: " + Deno.env.get("PGDATABASE"))
     connectionPool = new Pool({ 
-        host:Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST"),
-        user:Deno.env.get("PGUSER"),
-        password:Deno.env.get("PGPASSWORD"),
-        port:5432,
-        // port:Deno.env.get("PG_CLUSTER_RW_SERVICE_PORT"),
-        database:Deno.env.get("PGDATABASE")
- }, CONCURRENT_CONNECTIONS); 
+    hostname: Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST"), 
+    port: Deno.env.get("PG_CLUSTER_RW_SERVICE_PORT"), 
+    }, CONCURRENT_CONNECTIONS); 
  } else { 
     connectionPool = new Pool({
         host:Deno.env.get("PGHOST"),
@@ -26,6 +17,8 @@ if (Deno.env.get("PG_CLUSTER_RW_SERVICE_HOST")) {
         port:5432  
     }, CONCURRENT_CONNECTIONS); 
  } 
+
+
 
 
 

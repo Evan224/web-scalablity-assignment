@@ -1,6 +1,5 @@
-import {useState, useEffect,lazy,Suspense} from 'react';
+import {useState, useEffect} from 'react';
 import {useParams } from 'react-router-dom';
-import Card from './Card.jsx';
 
 export default function CardDetail(props) {
     const {id}=useParams();

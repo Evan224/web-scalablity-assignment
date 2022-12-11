@@ -1,0 +1,66 @@
+apiVersion: v1
+data:
+  CreateDB.sql: |-
+    SET ROLE app;
+    create table if not exists users (
+        id serial primary key,
+        token varchar(255) not null
+    );
+    create table IF NOT EXISTS messages(
+        id serial primary key,
+        content varchar(255) not null,
+        votes int default 0,
+        user_id int references users(id) not null,
+        time timestamp default current_timestamp(0)
+    );
+    create table IF NOT EXISTS replies(
+        id serial primary key,
+        message_id int references messages(id) not null,
+        content varchar(255) not null,
+        user_id int references users(id) not null,
+        time timestamp default current_timestamp(0)
+    );
+kind: ConfigMap
+metadata:
+  name: pg-init-script
+---
+apiVersion: v1
+data:
+  username: YXBw
+  password: cGFzc3dvcmQ=
+kind: Secret
+metadata:
+  name: app-secret
+type: kubernetes.io/basic-auth
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-cluster
+spec:
+  instances: 3
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: app-secret
+      postInitApplicationSQLRefs:
+        configMapRefs:
+          - name: pg-init-script
+            key: CreateDB.sql
+  storage:
+    size: 1Gi
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: database
+#   labels:
+#     app: database
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: database
+#   ports:
+#     - port: 5432

@@ -14,5 +14,6 @@ create table IF NOT EXISTS replies(
     id serial primary key,
     message_id int references messages(id) not null,
     content varchar(255) not null,
-    user_id int references users(id) not null
+    user_id int references users(id) not null,
+    time timestamp default current_timestamp(0)
 );

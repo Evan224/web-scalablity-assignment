@@ -1,7 +1,5 @@
-import {useState, useEffect,lazy,Suspense} from 'react';
-import {useNavigate,useLocation} from 'react-router-dom';
-import ReactMarkdown from 'react-markdown'
-import useInterval from './useInterval.js';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -11,7 +9,7 @@ export default function Card(props) {
   const {show=true}=props;
   const {message}=props;
   const [vote,setVote]=useState(message[2]);
-  const [content,setContent]=useState(message[1]);
+  const [content]=useState(message[1]);
   const navigate=useNavigate();
 
 

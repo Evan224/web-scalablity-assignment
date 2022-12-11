@@ -1,7 +1,6 @@
-import {useState, useEffect,useMemo} from 'react';
+import {useState, useEffect} from 'react';
 import Card from './Card.jsx';
 import List from 'rc-virtual-list';
-import { Link,useNavigate } from "react-router-dom";
 
 
 

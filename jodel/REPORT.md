@@ -69,9 +69,8 @@ For the K6 test,
 
 # Brief reflection
 
-I think the api design has many aspects to better. I have used the localstorage
-for many requests. I think this will affect my performance. I think my job queue
-is way too simple. I did not use the modern solutions such as kafka.
+This big project is a bit hard for me. The k8s is a new technology for me and there are many issues that are hard to find online. But overall it is still a very interesting tool to use and deploy.
+The scroll function is very interesting. There are many solutions in the frontend to do that. And the SSE function is surely the key concept of the software.
 
 # Brief suggestion for improvements
 

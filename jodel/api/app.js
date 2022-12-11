@@ -1,6 +1,6 @@
 import { serve } from "./deps.js";
 import { createUser, getUserId, getAllMessages, getMessageReplies, postMessage,getOneMessage,
-   postReply, upvoteMessage, downvoteMessage} from "./database.js";
+   postReply, upvoteMessage, downvoteMessage,randomInsert20Messages} from "./database.js";
 // import { jobQueue } from "./jobQueue.js";
 
 const handleUserId=async (request)=>{
@@ -9,7 +9,6 @@ const handleUserId=async (request)=>{
   if(!token||token==="null") {
     token=crypto.randomUUID();
     await createUser(token);
-    // console.log('new user',token);
   }
 
   let userId;
@@ -33,7 +32,9 @@ const handleRequest = async (request) => {
   // POST: post new message, reply to a message, upvote a message, downvote a message
   if(method==="GET") {
     if(!path) { //all messages
-        const messages=await getAllMessages();
+        const u=new URL(request.url);
+        const offset=u.searchParams.get('offset')||0;
+        const messages=await getAllMessages(offset);
         return new Response(JSON.stringify(messages), {
           headers: respheaders,
         });
@@ -67,6 +68,12 @@ const handleRequest = async (request) => {
         headers: respheaders,
       });
     }
+    if(path==="random") { //random insert 20 messages
+      const response=await randomInsert20Messages();
+      return new Response(JSON.stringify(response), {
+        headers: respheaders,
+      });
+      }
     if(path==="reply") { //reply to a message
       const response=await postReply(body.content,userId,body.message_id);
       return new Response(JSON.stringify(response), {
